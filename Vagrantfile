@@ -1,8 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+default_box = 'win81-ie11'
+
 # box name into env var, same script can be used with different boxes. Defaults to win7-ie11.
-box_name = box_name = ENV['box_name'] != nil ? ENV['box_name'].strip : 'win8-ie11'
+box_name = box_name = ENV['box_name'] != nil ? ENV['box_name'].strip : default_box
 # box repo into env var, so private repos/cache can be used. Defaults to http://aka.ms
 box_repo = ENV['box_repo'] != nil ? ENV['box_repo'].strip : 'http://aka.ms'
 
@@ -23,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     # first setup requires gui to be enabled so scripts can be executed in virtualbox guest screen
-    #vb.gui = true
+    vb.gui = true
     vb.customize ["modifyvm", :id, "--memory", "1024"]
     vb.customize ["modifyvm", :id, "--vram", "128"]
     vb.customize ["modifyvm", :id,  "--cpus", "2"]
